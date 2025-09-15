@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flutter Mastery eBook - Your Ultimate Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #e2e8f0;
+        }
+
+        .hero-gradient {
+            background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(12, 74, 110, 0.3), transparent);
+        }
+        
+        .feature-card {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: rgba(79, 70, 229, 0.5);
+        }
+
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(79, 70, 229, 0.7);
+        }
+        
+        .book-card {
+             border: 1px solid rgba(255, 255, 255, 0.1);
+             background-color: #111827;
+        }
+        
+        .accordion-item-header {
+            cursor: pointer;
+        }
+        
+        .accordion-item-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0, 1, 0, 1);
+        }
+
+        .accordion-item-body.open {
+             max-height: 1000px; /* arbitrary large value */
+             transition: max-height 1s cubic-bezier(1, 0, 1, 0);
+        }
+        
+        /* Scroll reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+            transition-timing-function: cubic-bezier(0.17, 0.55, 0.55, 1);
+        }
+
+        .reveal-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: color 0.3s;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4f46e5;
+            transition: width 0.3s ease-in-out;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* 3D Book Styles */
+        .book-container {
+            perspective: 1500px;
+            width: 300px; /* Adjust size as needed */
+            height: 450px;
+        }
+
+        .book {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateY(-30deg) rotateX(15deg);
+            transition: transform 0.5s ease;
+        }
+
+        .book-container:hover .book {
+            transform: rotateY(-20deg) rotateX(10deg) scale(1.05);
+        }
+
+        .book-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-origin: left;
+            transform-style: preserve-3d;
+            transform: translateZ(25px);
+        }
+
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .book-spine {
+            position: absolute;
+            width: 50px; /* Book thickness */
+            height: 100%;
+            background: #1e293b;
+            transform: rotateY(-90deg) translateX(-25px);
+            transform-origin: center;
+        }
+
+        .book-pages {
+             position: absolute;
+            width: 100%;
+            height: 100%;
+            transform: translateZ(-25px);
+            background-color: #e2e8f0;
+            border-radius: 5px;
+             box-shadow: 
+                inset 5px 0 15px rgba(0,0,0,0.2), /* Inner shadow for depth */
+                10px 10px 20px rgba(0,0,0,0.3); /* Outer shadow */
+        }
+        
+        @media (max-width: 768px) {
+            .book-container {
+                width: 240px;
+                height: 360px;
+            }
+             .book {
+                transform: rotateY(-15deg) rotateX(5deg);
+            }
+            .book-container:hover .book {
+                 transform: rotateY(-10deg) rotateX(5deg) scale(1.05);
+            }
+        }
+        
+        /* Small 3D Book Styles */
+        .small-book-container {
+            perspective: 1200px;
+            width: 200px;
+            height: 300px;
+            margin: 0 auto 1.5rem auto;
+        }
+
+        .small-book {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transform: rotateY(-30deg) rotateX(15deg);
+            transition: transform 0.5s ease;
+        }
+
+        .small-book-container:hover .small-book {
+            transform: rotateY(-20deg) rotateX(10deg) scale(1.05);
+        }
+        
+        .small-book .book-cover {
+            transform: translateZ(15px); /* Thinner book */
+        }
+        
+        .small-book .book-spine {
+            width: 30px; /* Thinner spine */
+            transform: rotateY(-90deg) translateX(-15px);
+        }
+
+        .small-book .book-pages {
+            transform: translateZ(-15px); /* Thinner book */
+        }
+        
+        @media (max-width: 1024px) and (min-width: 768px) {
+             .other-book-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+        }
+
+        /* Sales Tag Animation */
+        @keyframes pulse-glow {
+          0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 0 8px rgba(250, 204, 21, 0.5);
+          }
+          50% {
+            transform: scale(1.05);
+            box-shadow: 0 0 16px rgba(250, 204, 21, 0.8);
+          }
+        }
+
+        .sales-tag-animation {
+          animation: pulse-glow 3s infinite ease-in-out;
+        }
+        
+        /* Popup animation */
+        .popup {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .popup-content {
+            transition: transform 0.3s ease-in-out;
+        }
+        .popup.visible {
+            opacity: 1;
+        }
+        .popup.visible .popup-content {
+            transform: scale(1);
+        }
+
+
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+    <!-- Header -->
+    <header id="home" class="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-lg border-b border-gray-800">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#" class="text-2xl font-bold text-white flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                    Flutter Mastery
+                </a>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-300 hover:text-indigo-400 nav-link">Home</a>
+                    <a href="#features" class="text-gray-300 hover:text-indigo-400 nav-link">Features</a>
+                    <a href="#contents" class="text-gray-300 hover:text-indigo-400 nav-link">Contents</a>
+                    <a href="#other-books" class="text-gray-300 hover:text-indigo-400 nav-link">E-Books</a>
+                </nav>
+                 <a href="#main-book" class="hidden md:inline-block bg-indigo-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-indigo-700 cta-button">Get Your Copy</a>
+                <button id="mobile-menu-btn" class="md:hidden text-white">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900/90">
+            <a href="#home" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-gray-800">Home</a>
+            <a href="#features" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-gray-800">Features</a>
+            <a href="#contents" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-gray-800">Contents</a>
+            <a href="#other-books" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-gray-800">E-Books</a>
+            <div class="p-4">
+                <a href="#main-book" class="block text-center w-full bg-indigo-600 text-white font-semibold py-2.5 px-5 rounded-lg hover:bg-indigo-700 cta-button">Get Your Copy</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="main-book" class="pt-32 pb-20 md:pt-40 md:pb-32 hero-gradient overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <!-- Text Content -->
+                    <div class="text-center md:text-left reveal">
+                        <div class="inline-block bg-yellow-400/10 text-yellow-300 text-sm font-semibold py-2 px-4 rounded-full mb-6 sales-tag-animation">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="flame" class="w-4 h-4"></i>
+                                <span>500+ copies sold in the last 3 months</span>
+                            </div>
+                        </div>
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4">
+                            The Ultimate <span class="text-indigo-400">2300+ Page</span> Guide to Mastering Flutter
+                        </h1>
+                        <p class="text-lg md:text-xl text-gray-400 max-w-xl mx-auto md:mx-0 mb-8">
+                            From total beginner to seasoned expert, this comprehensive guide is your one-stop resource for building beautiful, high-performance applications with Flutter.
+                        </p>
+                        <div class="flex justify-center md:justify-start items-center gap-4 mb-8">
+                            <span class="text-3xl md:text-4xl font-bold text-white">₹199</span>
+                            <span class="text-gray-400">/</span>
+                            <span class="text-3xl md:text-4xl font-bold text-white">$4.99</span>
+                        </div>
+                        <div class="flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4">
+                            <a href="https://superprofile.bio/vp/67db4ca83522a40013b91eb3" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg flex items-center justify-center gap-2 cta-button">
+                                <i data-lucide="shopping-cart"></i>
+                                Buy (UPI)
+                            </a>
+                            <a href="https://ko-fi.com/s/598a768830" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto bg-gray-700 text-white font-semibold py-3 px-8 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-600 transition-all duration-300">
+                               <i data-lucide="globe"></i>
+                                Buy (Global)
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 3D Book -->
+                    <div class="flex items-center justify-center h-full reveal md:mt-0 mt-8">
+                         <div class="book-container">
+                            <div class="book">
+                                <div class="book-cover">
+                                    <img src="https://storage.ko-fi.com/cdn/useruploads/display/31970868-94d1-4933-be3b-5571bd991f59_1000025833.jpg" alt="Flutter Mastery eBook Cover">
+                                </div>
+                                <div class="book-spine"></div>
+                                <div class="book-pages"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="py-20 bg-black">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Why Choose Flutter Mastery?</h2>
+                    <p class="mt-4 text-lg text-gray-400">Unlock the full potential of Flutter with expert insights and hands-on guidance.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="feature-card p-8 rounded-xl reveal">
+                        <div class="bg-indigo-500/10 text-indigo-400 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
+                            <i data-lucide="book-open"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Comprehensive Coverage</h3>
+                        <p class="text-gray-400">Over 2300 pages covering everything from the absolute basics to the most advanced topics.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="feature-card p-8 rounded-xl reveal" style="transition-delay: 100ms;">
+                        <div class="bg-indigo-500/10 text-indigo-400 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
+                            <i data-lucide="code"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Practical Examples</h3>
+                        <p class="text-gray-400">Learn by doing with dozens of hands-on examples and real-world project snippets.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="feature-card p-8 rounded-xl reveal" style="transition-delay: 200ms;">
+                        <div class="bg-indigo-500/10 text-indigo-400 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
+                            <i data-lucide="lightbulb"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-2">Expert Insights</h3>
+                        <p class="text-gray-400">Gain tips, tricks, and best practices from seasoned Flutter developers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Table of Contents -->
+        <section id="contents" class="py-20 bg-gray-900/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">What's Inside?</h2>
+                    <p class="mt-4 text-lg text-gray-400">A detailed look at the five core parts of the eBook.</p>
+                </div>
+                <div class="max-w-3xl mx-auto space-y-4" id="accordion-container">
+                    <!-- Accordion Item 1 -->
+                    <div class="bg-gray-800/50 border border-gray-700 rounded-lg reveal">
+                        <div class="accordion-item-header flex justify-between items-center p-5">
+                            <h3 class="font-semibold text-lg text-white">PART 1: Beginner – Flutter Basics &amp; UI Components</h3>
+                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300"></i>
+                        </div>
+                        <div class="accordion-item-body">
+                            <ul class="p-5 pt-0 text-gray-400 space-y-2 list-disc list-inside">
+                                <li>Chapter 1: Introduction to Flutter</li>
+                                <li>Chapter 2: Installing Flutter</li>
+                                <li>Chapter 3: Understanding Flutter Project Structure</li>
+                                <li>Chapter 4: Dart Programming Language Basics</li>
+                                <li>Chapter 5: Handling User Input</li>
+                                <li>Chapter 6: Widgets &amp; Layouts</li>
+                                <li>Chapter 7: Theming &amp; Styling in Flutter</li>
+                                <li>Chapter 8: Navigation &amp; Routing</li>
+                                <li>Chapter 9: Working with Images &amp; Media</li>
+                                <li>Chapter 10: Debugging &amp; Hot Reload</li>
+                                <li>Chapter 11: State Management Basics (setState())</li>
+                                <li>Chapter 12: Project 1 – To-Do List App</li>
+                                <li>Chapter 13: Project 2 – Weather App with API</li>
+                                <li>Chapter 14: Best Practices for Beginners</li>
+                                <li>Chapter 15: Summary &amp; Next Steps</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 2 -->
+                     <div class="bg-gray-800/50 border border-gray-700 rounded-lg reveal">
+                        <div class="accordion-item-header flex justify-between items-center p-5">
+                            <h3 class="font-semibold text-lg text-white">PART 2: Intermediate – APIs, State Management, and Databases</h3>
+                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300"></i>
+                        </div>
+                        <div class="accordion-item-body">
+                            <ul class="p-5 pt-0 text-gray-400 space-y-2 list-disc list-inside">
+                                <li>Chapter 16: Understanding HTTP Requests &amp; APIs in Flutter</li>
+                                <li>Chapter 17: State Management – Provider</li>
+                                <li>Chapter 18: State Management – Bloc &amp; Cubit</li>
+                                <li>Chapter 19: Database Storage – SQLite &amp; Hive</li>
+                                <li>Chapter 20: Firebase Firestore &amp; Authentication</li>
+                                <li>Chapter 21: Project 3 – Chat App Using Firebase &amp; Provider</li>
+                                <li>Chapter 22: Project 4 – E-commerce App with Cart &amp; Payment Gateway</li>
+                                <li>Chapter 23: Advanced Forms &amp; Validation</li>
+                                <li>Chapter 24: Implementing Background Services &amp; Notifications</li>
+                                <li>Chapter 25: Securing Flutter Apps</li>
+                                <li>Chapter 26: Performance Optimization in Intermediate-Level Flutter Apps</li>
+                                <li>Chapter 27: Summary &amp; Next Steps</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <!-- Accordion Item 3 -->
+                     <div class="bg-gray-800/50 border border-gray-700 rounded-lg reveal">
+                        <div class="accordion-item-header flex justify-between items-center p-5">
+                            <h3 class="font-semibold text-lg text-white">PART 3: Advanced – Animations, Performance, Testing &amp; CI/CD</h3>
+                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300"></i>
+                        </div>
+                        <div class="accordion-item-body">
+                            <ul class="p-5 pt-0 text-gray-400 space-y-2 list-disc list-inside">
+                                <li>Chapter 28: Advanced Animations in Flutter</li>
+                                <li>Chapter 29: Custom UI &amp; Advanced Widgets</li>
+                                <li>Chapter 30: Deep Linking &amp; Dynamic Links</li>
+                                <li>Chapter 31: Testing in Flutter – Unit &amp; Widget Testing</li>
+                                <li>Chapter 32: Integration Testing &amp; UI Automation</li>
+                                <li>Chapter 33: Continuous Integration &amp; Deployment (CI/CD)</li>
+                                <li>Chapter 34: Flutter for Web – Building Web Apps</li>
+                                <li>Chapter 35: Flutter for Desktop – Windows, macOS &amp; Linux</li>
+                                <li>Chapter 36: AR, VR &amp; AI in Flutter</li>
+                                <li>Chapter 37: Performance Optimization &amp; Best Practices</li>
+                                <li>Chapter 38: Project 5 – Full Stack Chat App with Firebase, Web &amp; Mobile</li>
+                                <li>Chapter 39: Summary &amp; Future Scope in Flutter Development</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <!-- Accordion Item 4 -->
+                     <div class="bg-gray-800/50 border border-gray-700 rounded-lg reveal">
+                        <div class="accordion-item-header flex justify-between items-center p-5">
+                            <h3 class="font-semibold text-lg text-white">PART 4: Master – Enterprise-Level Apps, Microservices, AI &amp; Server-Side Dart</h3>
+                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300"></i>
+                        </div>
+                        <div class="accordion-item-body">
+                           <ul class="p-5 pt-0 text-gray-400 space-y-2 list-disc list-inside">
+                                <li>Chapter 40: Understanding Microservices Architecture for Flutter Apps</li>
+                                <li>Chapter 41: GraphQL &amp; Flutter – Building Modern APIs</li>
+                                <li>Chapter 42: Server-Side Dart with Shelf, Aqueduct &amp; Dart Frog</li>
+                                <li>Chapter 43: Advanced Animations – Lottie, Rive &amp; Custom Motion Design</li>
+                                <li>Chapter 44: AI-Powered Apps with Flutter – ML Kit &amp; TensorFlow Lite</li>
+                                <li>Chapter 45: Flutter &amp; Blockchain – Web3, NFT &amp; Smart Contracts</li>
+                                <li>Chapter 46: Performance Scaling &amp; Memory Optimization</li>
+                                <li>Chapter 47: Real-World Project – Enterprise-Level E-Commerce App</li>
+                                <li>Chapter 48: IoT &amp; Embedded Systems with Flutter</li>
+                                <li>Chapter 49: Advanced DevOps &amp; CI/CD for Large-Scale Apps</li>
+                                <li>Chapter 50: The Future of Flutter – Trends &amp; Career Growth</li>
+                            </ul>
+                        </div>
+                    </div>
+                     <!-- Accordion Item 5 -->
+                     <div class="bg-gray-800/50 border border-gray-700 rounded-lg reveal">
+                        <div class="accordion-item-header flex justify-between items-center p-5">
+                            <h3 class="font-semibold text-lg text-white">PART 5: Extras &amp; Resources – Best Practices, Tools, and Career Growth</h3>
+                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300"></i>
+                        </div>
+                        <div class="accordion-item-body">
+                            <ul class="p-5 pt-0 text-gray-400 space-y-2 list-disc list-inside">
+                                <li>Chapter 51: Must-Know Flutter Development Tools</li>
+                                <li>Chapter 52: Best Practices in Flutter Development</li>
+                                <li>Chapter 53: Flutter Community &amp; Open Source Contributions</li>
+                                <li>Chapter 54: Preparing for Flutter Developer Interviews</li>
+                                <li>Chapter 55: Freelancing &amp; Business Growth as a Flutter Developer</li>
+                                <li>Chapter 56: Publishing Flutter Apps on App Stores</li>
+                                <li>Chapter 57: Flutter Certification &amp; Career Growth</li>
+                                <li>Chapter 58: Flutter Development Case Studies</li>
+                                <li>Chapter 59: Debugging &amp; Troubleshooting Flutter Issues</li>
+                                <li>Chapter 60: Setting Up a Flutter Portfolio Website</li>
+                                <li>Chapter 61: The Future of Flutter &amp; Dart</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Other E-Books Section -->
+        <section id="other-books" class="py-20 bg-black">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">More E-Books from Flutter Mastery</h2>
+                    <p class="mt-4 text-lg text-gray-400">Expand your library with our other focused guides.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                    <!-- Book Card 1 -->
+                    <div class="book-card rounded-lg overflow-hidden p-6 reveal">
+                        <div class="flex flex-col lg:flex-row items-center gap-6 other-book-card">
+                             <!-- Small 3D Book -->
+                            <div class="small-book-container flex-shrink-0">
+                                <div class="small-book book">
+                                    <div class="book-cover">
+                                        <img src="https://storage.ko-fi.com/cdn/useruploads/display/006e019c-d77e-4e2d-a5cc-33418eb79fb9_1000029333.jpg" alt="100 Flutter Fundamental Tips & Tricks">
+                                    </div>
+                                    <div class="book-spine"></div>
+                                    <div class="book-pages"></div>
+                                </div>
+                            </div>
+                            <!-- Text Content -->
+                            <div class="flex flex-col flex-grow text-center lg:text-left">
+                                 <h3 class="text-xl font-bold text-white mb-2">100 Flutter Fundamental Tips & Tricks</h3>
+                                 <p class="text-gray-400 text-sm mb-4 flex-grow">Essential tips and tricks for mastering Flutter development. A quick guide to boost your productivity.</p>
+                                <div class="flex items-center justify-center lg:justify-start mb-4">
+                                    <span class="text-2xl font-bold text-white">₹100 / $3</span>
+                                </div>
+                                <div class="flex flex-col sm:flex-row gap-2">
+                                     <a href="https://superprofile.bio/vp/660bfa3647e6860013261677" target="_blank" rel="noopener noreferrer" class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2 cta-button text-sm">
+                                        <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                                        UPI Buy
+                                    </a>
+                                     <a href="https://ko-fi.com/s/22907c9ab8" target="_blank" rel="noopener noreferrer" class="w-full bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-600 transition-all duration-300 text-sm">
+                                       <i data-lucide="globe" class="w-4 h-4"></i>
+                                        Global Buy
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Book Card 2 -->
+                    <div class="book-card rounded-lg overflow-hidden p-6 reveal">
+                        <div class="flex flex-col lg:flex-row items-center gap-6 other-book-card">
+                             <!-- Small 3D Book -->
+                            <div class="small-book-container flex-shrink-0">
+                                <div class="small-book book">
+                                    <div class="book-cover">
+                                        <img src="https://storage.ko-fi.com/cdn/useruploads/display/607eabf3-6aff-4ac3-938d-e155d68db0e2_1000029330.jpg" alt="Master Flutter Backend Integration">
+                                    </div>
+                                    <div class="book-spine"></div>
+                                    <div class="book-pages"></div>
+                                </div>
+                            </div>
+                            <!-- Text Content -->
+                            <div class="flex flex-col flex-grow text-center lg:text-left">
+                                 <h3 class="text-xl font-bold text-white mb-2">Master Flutter Backend Integration</h3>
+                                 <p class="text-gray-400 text-sm mb-4 flex-grow">Learn to build scalable Flutter apps with REST, GraphQL, and real-time data integration.</p>
+                                <div class="flex items-center justify-center lg:justify-start mb-4">
+                                    <span class="text-2xl font-bold text-white">₹100 / $3</span>
+                                </div>
+                                <div class="flex flex-col sm:flex-row gap-2">
+                                     <a href="https://superprofile.bio/vp/67b09c1ef98aec0012b38ec2" target="_blank" rel="noopener noreferrer" class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2 cta-button text-sm">
+                                        <i data-lucide="shopping-cart" class="w-4 h-4"></i>
+                                        UPI Buy
+                                    </a>
+                                     <a href="https://ko-fi.com/s/afa097fc6c" target="_blank" rel="noopener noreferrer" class="w-full bg-gray-700 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2 hover:bg-gray-600 transition-all duration-300 text-sm">
+                                       <i data-lucide="globe" class="w-4 h-4"></i>
+                                        Global Buy
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Subscription Section -->
+        <section class="py-20 bg-gray-900/50">
+            <div class="container mx-auto px-6 text-center reveal">
+                 <h2 class="text-3xl md:text-4xl font-bold text-white">Stay Updated</h2>
+                 <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">Subscribe to our newsletter for the latest book releases, articles, and Flutter tips.</p>
+                 <form id="subscription-form" class="mt-8 max-w-md mx-auto flex flex-col sm:flex-row gap-3">
+                     <input id="email-input" type="email" placeholder="Enter your email" class="flex-grow w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                     <button type="submit" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg cta-button">Subscribe</button>
+                 </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Thank You Popup -->
+    <div id="thank-you-popup" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-[999] hidden opacity-0 popup">
+        <div class="bg-gray-800 border border-gray-700 rounded-lg p-8 text-center max-w-sm w-full relative transform scale-95 popup-content">
+            <button id="close-popup-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="bg-green-500/10 text-green-400 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-white mb-2">Thank You!</h3>
+            <p class="text-gray-400">You've successfully subscribed. Welcome aboard!</p>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gray-800">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i data-lucide="mail" class="inline w-4 h-4 mr-2"></i> appdevizer@gmail.com</li>
+                        <li><i data-lucide="phone" class="inline w-4 h-4 mr-2"></i> +91 9507734271</li>
+                        <li><i data-lucide="map-pin" class="inline w-4 h-4 mr-2"></i> Innovation Drive, Cityville</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
+                     <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-indigo-400 transition-colors">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">Licenses</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Flutter Mastery</h3>
+                    <p class="text-gray-400">A 2300+ page comprehensive guide from Beginner to Expert. Our mission is to provide the best learning resources for Flutter developers worldwide.</p>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-800 pt-8 flex flex-col sm:flex-row justify-between items-center text-center">
+                <p class="text-gray-500">Developed by ZealousWeb.</p>
+                <p class="text-gray-500 mt-4 sm:mt-0">&copy; 2024 Flutter Mastery. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        lucide.createIcons();
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Accordion functionality
+        const accordionContainer = document.getElementById('accordion-container');
+        if(accordionContainer) {
+            accordionContainer.addEventListener('click', (e) => {
+                const header = e.target.closest('.accordion-item-header');
+                if (!header) return;
+    
+                const accordionItem = header.parentElement;
+                const body = header.nextElementSibling;
+                const icon = header.querySelector('.accordion-icon');
+                
+                // Close other items
+                accordionItem.parentElement.querySelectorAll('.accordion-item-body').forEach(item => {
+                    if (item !== body) {
+                        item.classList.remove('open');
+                        item.previousElementSibling.querySelector('.accordion-icon').style.transform = 'rotate(0deg)';
+                    }
+                });
+                
+                // Toggle current item
+                body.classList.toggle('open');
+                if (body.classList.contains('open')) {
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            });
+        }
+
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
+        
+        
+        // Subscription form popup
+        const subForm = document.getElementById('subscription-form');
+        const thankYouPopup = document.getElementById('thank-you-popup');
+        const closePopupBtn = document.getElementById('close-popup-btn');
+        const emailInput = document.getElementById('email-input');
+
+        if (subForm && thankYouPopup && closePopupBtn && emailInput) {
+            subForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                thankYouPopup.classList.remove('hidden');
+                // Trigger reflow for transition
+                setTimeout(() => {
+                    thankYouPopup.classList.add('visible');
+                }, 10);
+                emailInput.value = ''; // Clear input
+            });
+
+            const closePopup = () => {
+                thankYouPopup.classList.remove('visible');
+                setTimeout(() => {
+                    thankYouPopup.classList.add('hidden');
+                }, 300); // Match duration of transition
+            };
+
+            closePopupBtn.addEventListener('click', closePopup);
+            
+            thankYouPopup.addEventListener('click', (e) => {
+                // Close if clicking on the backdrop
+                if (e.target === thankYouPopup) {
+                    closePopup();
+                }
+            });
+        }
+
+
+    </script>
+
+</body>
+
+</html>
+
+
