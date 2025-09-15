@@ -11,60 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* CSS Variables for Theming */
-        :root {
-            /* Dark Mode (Default) */
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #000000;
-            --bg-section: rgba(17, 24, 39, 0.5);
-            --bg-card: #111827;
-            --bg-card-hover: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 100%);
-            --bg-accordion: rgba(31, 41, 55, 0.5);
-            --bg-header: rgba(10, 10, 10, 0.5);
-            --bg-input: #1f2937;
-            --bg-popup: #1f2937;
-            
-            --text-primary: #e2e8f0;
-            --text-secondary: #9ca3af;
-            --text-muted: #6b7280;
-            
-            --border-primary: #374151;
-            --border-secondary: #4b5563;
-
-            --book-spine-bg: #1e293b;
-            --book-pages-bg: #e2e8f0;
-        }
-
-        @media (prefers-color-scheme: light) {
-            :root {
-                /* Light Mode */
-                --bg-primary: #f9fafb;
-                --bg-secondary: #ffffff;
-                --bg-section: #f3f4f6;
-                --bg-card: #ffffff;
-                --bg-card-hover: linear-gradient(145deg, rgba(0,0,0,0.02) 0%, rgba(0,0,0,0) 100%);
-                --bg-accordion: #ffffff;
-                --bg-header: rgba(255, 255, 255, 0.5);
-                --bg-input: #ffffff;
-                --bg-popup: #ffffff;
-
-                --text-primary: #111827;
-                --text-secondary: #4b5563;
-                --text-muted: #6b7280;
-
-                --border-primary: #e5e7eb;
-                --border-secondary: #d1d5db;
-                
-                --book-spine-bg: #d1d5db;
-                --book-pages-bg: #f9fafb;
-            }
-        }
-
-
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            background-color: #0a0a0a;
+            color: #e2e8f0;
         }
 
         .hero-gradient {
@@ -72,14 +22,14 @@
         }
         
         .feature-card {
-            border: 1px solid var(--border-primary);
-            background: var(--bg-card-hover);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: linear-gradient(145deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
             transition: all 0.3s ease;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             border-color: rgba(79, 70, 229, 0.5);
         }
 
@@ -93,8 +43,8 @@
         }
         
         .book-card {
-             border: 1px solid var(--border-primary);
-             background-color: var(--bg-card);
+             border: 1px solid rgba(255, 255, 255, 0.1);
+             background-color: #111827;
         }
         
         .accordion-item-header {
@@ -187,19 +137,19 @@
             position: absolute;
             width: 50px; /* Book thickness */
             height: 100%;
-            background: var(--book-spine-bg);
+            background: #1e293b;
             transform: rotateY(-90deg) translateX(-25px);
             transform-origin: center;
         }
 
         .book-pages {
-            position: absolute;
+             position: absolute;
             width: 100%;
             height: 100%;
             transform: translateZ(-25px);
-            background-color: var(--book-pages-bg);
+            background-color: #e2e8f0;
             border-radius: 5px;
-            box-shadow: 
+             box-shadow: 
                 inset 5px 0 15px rgba(0,0,0,0.2), /* Inner shadow for depth */
                 10px 10px 20px rgba(0,0,0,0.3); /* Outer shadow */
         }
@@ -296,31 +246,31 @@
 <body class="overflow-x-hidden">
 
     <!-- Header -->
-    <header id="home" class="fixed top-0 left-0 right-0 z-50 bg-[var(--bg-header)] backdrop-blur-lg border-b border-[var(--border-primary)]">
+    <header id="home" class="fixed top-0 left-0 right-0 z-50 bg-black/30 backdrop-blur-lg border-b border-gray-800">
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
-                <a href="#" class="text-2xl font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <a href="#" class="text-2xl font-bold text-white flex items-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-400"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
                     Flutter Mastery
                 </a>
                 <nav class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-[var(--text-secondary)] hover:text-indigo-400 nav-link">Home</a>
-                    <a href="#features" class="text-[var(--text-secondary)] hover:text-indigo-400 nav-link">Features</a>
-                    <a href="#contents" class="text-[var(--text-secondary)] hover:text-indigo-400 nav-link">Contents</a>
-                    <a href="#other-books" class="text-[var(--text-secondary)] hover:text-indigo-400 nav-link">E-Books</a>
+                    <a href="#home" class="text-gray-300 hover:text-indigo-400 nav-link">Home</a>
+                    <a href="#features" class="text-gray-300 hover:text-indigo-400 nav-link">Features</a>
+                    <a href="#contents" class="text-gray-300 hover:text-indigo-400 nav-link">Contents</a>
+                    <a href="#other-books" class="text-gray-300 hover:text-indigo-400 nav-link">E-Books</a>
                 </nav>
                  <a href="#main-book" class="hidden md:inline-block bg-indigo-600 text-white font-semibold py-2 px-5 rounded-lg hover:bg-indigo-700 cta-button">Get Your Copy</a>
-                <button id="mobile-menu-btn" class="md:hidden text-[var(--text-primary)]">
+                <button id="mobile-menu-btn" class="md:hidden text-white">
                     <i data-lucide="menu"></i>
                 </button>
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-[var(--bg-card)]">
-            <a href="#home" class="block text-center py-3 px-4 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-accordion)]">Home</a>
-            <a href="#features" class="block text-center py-3 px-4 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-accordion)]">Features</a>
-            <a href="#contents" class="block text-center py-3 px-4 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-accordion)]">Contents</a>
-            <a href="#other-books" class="block text-center py-3 px-4 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-accordion)]">E-Books</a>
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900/90">
+            <a href="#home" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-gray-800">Home</a>
+            <a href="#features" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-gray-800">Features</a>
+            <a href="#contents" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-gray-800">Contents</a>
+            <a href="#other-books" class="block text-center py-3 px-4 text-sm text-gray-200 hover:bg-gray-800">E-Books</a>
             <div class="p-4">
                 <a href="#main-book" class="block text-center w-full bg-indigo-600 text-white font-semibold py-2.5 px-5 rounded-lg hover:bg-indigo-700 cta-button">Get Your Copy</a>
             </div>
@@ -341,16 +291,16 @@
                                 <span>500+ copies sold in the last 3 months</span>
                             </div>
                         </div>
-                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-[var(--text-primary)] leading-tight mb-4">
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-4">
                             The Ultimate <span class="text-indigo-400">2300+ Page</span> Guide to Mastering Flutter
                         </h1>
-                        <p class="text-lg md:text-xl text-[var(--text-secondary)] max-w-xl mx-auto md:mx-0 mb-8">
+                        <p class="text-lg md:text-xl text-gray-400 max-w-xl mx-auto md:mx-0 mb-8">
                             From total beginner to seasoned expert, this comprehensive guide is your one-stop resource for building beautiful, high-performance applications with Flutter.
                         </p>
                         <div class="flex justify-center md:justify-start items-center gap-4 mb-8">
-                            <span class="text-3xl md:text-4xl font-bold text-[var(--text-primary)]">₹199</span>
-                            <span class="text-[var(--text-secondary)]">/</span>
-                            <span class="text-3xl md:text-4xl font-bold text-[var(--text-primary)]">$4.99</span>
+                            <span class="text-3xl md:text-4xl font-bold text-white">₹199</span>
+                            <span class="text-gray-400">/</span>
+                            <span class="text-3xl md:text-4xl font-bold text-white">$4.99</span>
                         </div>
                         <div class="flex flex-col sm:flex-row justify-center md:justify-start items-center gap-4">
                             <a href="https://superprofile.bio/vp/67db4ca83522a40013b91eb3" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto bg-indigo-600 text-white font-semibold py-3 px-8 rounded-lg flex items-center justify-center gap-2 cta-button">
@@ -380,11 +330,11 @@
         </section>
 
         <!-- Features Section -->
-        <section id="features" class="py-20 bg-[var(--bg-secondary)]">
+        <section id="features" class="py-20 bg-black">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 reveal">
-                    <h2 class="text-3xl md:text-4xl font-bold text-[var(--text-primary)]">Why Choose Flutter Mastery?</h2>
-                    <p class="mt-4 text-lg text-[var(--text-secondary)]">Unlock the full potential of Flutter with expert insights and hands-on guidance.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">Why Choose Flutter Mastery?</h2>
+                    <p class="mt-4 text-lg text-gray-400">Unlock the full potential of Flutter with expert insights and hands-on guidance.</p>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Feature 1 -->
@@ -392,45 +342,45 @@
                         <div class="bg-indigo-500/10 text-indigo-400 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
                             <i data-lucide="book-open"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2">Comprehensive Coverage</h3>
-                        <p class="text-[var(--text-secondary)]">Over 2300 pages covering everything from the absolute basics to the most advanced topics.</p>
+                        <h3 class="text-xl font-bold text-white mb-2">Comprehensive Coverage</h3>
+                        <p class="text-gray-400">Over 2300 pages covering everything from the absolute basics to the most advanced topics.</p>
                     </div>
                     <!-- Feature 2 -->
                     <div class="feature-card p-8 rounded-xl reveal" style="transition-delay: 100ms;">
                         <div class="bg-indigo-500/10 text-indigo-400 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
                             <i data-lucide="code"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2">Practical Examples</h3>
-                        <p class="text-[var(--text-secondary)]">Learn by doing with dozens of hands-on examples and real-world project snippets.</p>
+                        <h3 class="text-xl font-bold text-white mb-2">Practical Examples</h3>
+                        <p class="text-gray-400">Learn by doing with dozens of hands-on examples and real-world project snippets.</p>
                     </div>
                     <!-- Feature 3 -->
                     <div class="feature-card p-8 rounded-xl reveal" style="transition-delay: 200ms;">
                         <div class="bg-indigo-500/10 text-indigo-400 rounded-lg w-12 h-12 flex items-center justify-center mb-4">
                             <i data-lucide="lightbulb"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2">Expert Insights</h3>
-                        <p class="text-[var(--text-secondary)]">Gain tips, tricks, and best practices from seasoned Flutter developers.</p>
+                        <h3 class="text-xl font-bold text-white mb-2">Expert Insights</h3>
+                        <p class="text-gray-400">Gain tips, tricks, and best practices from seasoned Flutter developers.</p>
                     </div>
                 </div>
             </div>
         </section>
         
         <!-- Table of Contents -->
-        <section id="contents" class="py-20 bg-[var(--bg-section)]">
+        <section id="contents" class="py-20 bg-gray-900/50">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 reveal">
-                    <h2 class="text-3xl md:text-4xl font-bold text-[var(--text-primary)]">What's Inside?</h2>
-                    <p class="mt-4 text-lg text-[var(--text-secondary)]">A detailed look at the five core parts of the eBook.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">What's Inside?</h2>
+                    <p class="mt-4 text-lg text-gray-400">A detailed look at the five core parts of the eBook.</p>
                 </div>
                 <div class="max-w-3xl mx-auto space-y-4" id="accordion-container">
                     <!-- Accordion Item 1 -->
-                    <div class="bg-[var(--bg-accordion)] border border-[var(--border-primary)] rounded-lg reveal">
+                    <div class="bg-gray-800/50 border border-gray-700 rounded-lg reveal">
                         <div class="accordion-item-header flex justify-between items-center p-5">
-                            <h3 class="font-semibold text-lg text-[var(--text-primary)]">PART 1: Beginner – Flutter Basics &amp; UI Components</h3>
-                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300 text-[var(--text-secondary)]"></i>
+                            <h3 class="font-semibold text-lg text-white">PART 1: Beginner – Flutter Basics &amp; UI Components</h3>
+                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300"></i>
                         </div>
                         <div class="accordion-item-body">
-                            <ul class="p-5 pt-0 text-[var(--text-secondary)] space-y-2 list-disc list-inside">
+                            <ul class="p-5 pt-0 text-gray-400 space-y-2 list-disc list-inside">
                                 <li>Chapter 1: Introduction to Flutter</li>
                                 <li>Chapter 2: Installing Flutter</li>
                                 <li>Chapter 3: Understanding Flutter Project Structure</li>
@@ -450,13 +400,13 @@
                         </div>
                     </div>
                     <!-- Accordion Item 2 -->
-                     <div class="bg-[var(--bg-accordion)] border border-[var(--border-primary)] rounded-lg reveal">
+                     <div class="bg-gray-800/50 border border-gray-700 rounded-lg reveal">
                         <div class="accordion-item-header flex justify-between items-center p-5">
-                            <h3 class="font-semibold text-lg text-[var(--text-primary)]">PART 2: Intermediate – APIs, State Management, and Databases</h3>
-                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300 text-[var(--text-secondary)]"></i>
+                            <h3 class="font-semibold text-lg text-white">PART 2: Intermediate – APIs, State Management, and Databases</h3>
+                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300"></i>
                         </div>
                         <div class="accordion-item-body">
-                            <ul class="p-5 pt-0 text-[var(--text-secondary)] space-y-2 list-disc list-inside">
+                            <ul class="p-5 pt-0 text-gray-400 space-y-2 list-disc list-inside">
                                 <li>Chapter 16: Understanding HTTP Requests &amp; APIs in Flutter</li>
                                 <li>Chapter 17: State Management – Provider</li>
                                 <li>Chapter 18: State Management – Bloc &amp; Cubit</li>
@@ -473,13 +423,13 @@
                         </div>
                     </div>
                      <!-- Accordion Item 3 -->
-                     <div class="bg-[var(--bg-accordion)] border border-[var(--border-primary)] rounded-lg reveal">
+                     <div class="bg-gray-800/50 border border-gray-700 rounded-lg reveal">
                         <div class="accordion-item-header flex justify-between items-center p-5">
-                            <h3 class="font-semibold text-lg text-[var(--text-primary)]">PART 3: Advanced – Animations, Performance, Testing &amp; CI/CD</h3>
-                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300 text-[var(--text-secondary)]"></i>
+                            <h3 class="font-semibold text-lg text-white">PART 3: Advanced – Animations, Performance, Testing &amp; CI/CD</h3>
+                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300"></i>
                         </div>
                         <div class="accordion-item-body">
-                            <ul class="p-5 pt-0 text-[var(--text-secondary)] space-y-2 list-disc list-inside">
+                            <ul class="p-5 pt-0 text-gray-400 space-y-2 list-disc list-inside">
                                 <li>Chapter 28: Advanced Animations in Flutter</li>
                                 <li>Chapter 29: Custom UI &amp; Advanced Widgets</li>
                                 <li>Chapter 30: Deep Linking &amp; Dynamic Links</li>
@@ -496,13 +446,13 @@
                         </div>
                     </div>
                      <!-- Accordion Item 4 -->
-                     <div class="bg-[var(--bg-accordion)] border border-[var(--border-primary)] rounded-lg reveal">
+                     <div class="bg-gray-800/50 border border-gray-700 rounded-lg reveal">
                         <div class="accordion-item-header flex justify-between items-center p-5">
-                            <h3 class="font-semibold text-lg text-[var(--text-primary)]">PART 4: Master – Enterprise-Level Apps, Microservices, AI &amp; Server-Side Dart</h3>
-                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300 text-[var(--text-secondary)]"></i>
+                            <h3 class="font-semibold text-lg text-white">PART 4: Master – Enterprise-Level Apps, Microservices, AI &amp; Server-Side Dart</h3>
+                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300"></i>
                         </div>
                         <div class="accordion-item-body">
-                           <ul class="p-5 pt-0 text-[var(--text-secondary)] space-y-2 list-disc list-inside">
+                           <ul class="p-5 pt-0 text-gray-400 space-y-2 list-disc list-inside">
                                 <li>Chapter 40: Understanding Microservices Architecture for Flutter Apps</li>
                                 <li>Chapter 41: GraphQL &amp; Flutter – Building Modern APIs</li>
                                 <li>Chapter 42: Server-Side Dart with Shelf, Aqueduct &amp; Dart Frog</li>
@@ -518,13 +468,13 @@
                         </div>
                     </div>
                      <!-- Accordion Item 5 -->
-                     <div class="bg-[var(--bg-accordion)] border border-[var(--border-primary)] rounded-lg reveal">
+                     <div class="bg-gray-800/50 border border-gray-700 rounded-lg reveal">
                         <div class="accordion-item-header flex justify-between items-center p-5">
-                            <h3 class="font-semibold text-lg text-[var(--text-primary)]">PART 5: Extras &amp; Resources – Best Practices, Tools, and Career Growth</h3>
-                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300 text-[var(--text-secondary)]"></i>
+                            <h3 class="font-semibold text-lg text-white">PART 5: Extras &amp; Resources – Best Practices, Tools, and Career Growth</h3>
+                             <i data-lucide="chevron-down" class="accordion-icon transition-transform duration-300"></i>
                         </div>
                         <div class="accordion-item-body">
-                            <ul class="p-5 pt-0 text-[var(--text-secondary)] space-y-2 list-disc list-inside">
+                            <ul class="p-5 pt-0 text-gray-400 space-y-2 list-disc list-inside">
                                 <li>Chapter 51: Must-Know Flutter Development Tools</li>
                                 <li>Chapter 52: Best Practices in Flutter Development</li>
                                 <li>Chapter 53: Flutter Community &amp; Open Source Contributions</li>
@@ -544,11 +494,11 @@
         </section>
 
         <!-- Other E-Books Section -->
-        <section id="other-books" class="py-20 bg-[var(--bg-secondary)]">
+        <section id="other-books" class="py-20 bg-black">
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12 reveal">
-                    <h2 class="text-3xl md:text-4xl font-bold text-[var(--text-primary)]">More E-Books from Flutter Mastery</h2>
-                    <p class="mt-4 text-lg text-[var(--text-secondary)]">Expand your library with our other focused guides.</p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">More E-Books from Flutter Mastery</h2>
+                    <p class="mt-4 text-lg text-gray-400">Expand your library with our other focused guides.</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                     <!-- Book Card 1 -->
@@ -566,10 +516,10 @@
                             </div>
                             <!-- Text Content -->
                             <div class="flex flex-col flex-grow text-center lg:text-left">
-                                 <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2">100 Flutter Fundamental Tips & Tricks</h3>
-                                 <p class="text-[var(--text-secondary)] text-sm mb-4 flex-grow">Essential tips and tricks for mastering Flutter development. A quick guide to boost your productivity.</p>
+                                 <h3 class="text-xl font-bold text-white mb-2">100 Flutter Fundamental Tips & Tricks</h3>
+                                 <p class="text-gray-400 text-sm mb-4 flex-grow">Essential tips and tricks for mastering Flutter development. A quick guide to boost your productivity.</p>
                                 <div class="flex items-center justify-center lg:justify-start mb-4">
-                                    <span class="text-2xl font-bold text-[var(--text-primary)]">₹100 / $3</span>
+                                    <span class="text-2xl font-bold text-white">₹100 / $3</span>
                                 </div>
                                 <div class="flex flex-col sm:flex-row gap-2">
                                      <a href="https://superprofile.bio/vp/660bfa3647e6860013261677" target="_blank" rel="noopener noreferrer" class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2 cta-button text-sm">
@@ -599,10 +549,10 @@
                             </div>
                             <!-- Text Content -->
                             <div class="flex flex-col flex-grow text-center lg:text-left">
-                                 <h3 class="text-xl font-bold text-[var(--text-primary)] mb-2">Master Flutter Backend Integration</h3>
-                                 <p class="text-[var(--text-secondary)] text-sm mb-4 flex-grow">Learn to build scalable Flutter apps with REST, GraphQL, and real-time data integration.</p>
+                                 <h3 class="text-xl font-bold text-white mb-2">Master Flutter Backend Integration</h3>
+                                 <p class="text-gray-400 text-sm mb-4 flex-grow">Learn to build scalable Flutter apps with REST, GraphQL, and real-time data integration.</p>
                                 <div class="flex items-center justify-center lg:justify-start mb-4">
-                                    <span class="text-2xl font-bold text-[var(--text-primary)]">₹100 / $3</span>
+                                    <span class="text-2xl font-bold text-white">₹100 / $3</span>
                                 </div>
                                 <div class="flex flex-col sm:flex-row gap-2">
                                      <a href="https://superprofile.bio/vp/67b09c1ef98aec0012b38ec2" target="_blank" rel="noopener noreferrer" class="w-full bg-indigo-600 text-white font-semibold py-2 px-4 rounded-lg flex items-center justify-center gap-2 cta-button text-sm">
@@ -622,12 +572,12 @@
         </section>
         
         <!-- Subscription Section -->
-        <section class="py-20 bg-[var(--bg-section)]">
+        <section class="py-20 bg-gray-900/50">
             <div class="container mx-auto px-6 text-center reveal">
-                 <h2 class="text-3xl md:text-4xl font-bold text-[var(--text-primary)]">Stay Updated</h2>
-                 <p class="mt-4 text-lg text-[var(--text-secondary)] max-w-2xl mx-auto">Subscribe to our newsletter for the latest book releases, articles, and Flutter tips.</p>
+                 <h2 class="text-3xl md:text-4xl font-bold text-white">Stay Updated</h2>
+                 <p class="mt-4 text-lg text-gray-400 max-w-2xl mx-auto">Subscribe to our newsletter for the latest book releases, articles, and Flutter tips.</p>
                  <form id="subscription-form" class="mt-8 max-w-md mx-auto flex flex-col sm:flex-row gap-3">
-                     <input id="email-input" type="email" placeholder="Enter your email" class="flex-grow w-full bg-[var(--bg-input)] text-[var(--text-primary)] px-4 py-3 rounded-lg border border-[var(--border-primary)] focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+                     <input id="email-input" type="email" placeholder="Enter your email" class="flex-grow w-full bg-gray-800 text-white px-4 py-3 rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
                      <button type="submit" class="bg-indigo-600 text-white font-semibold py-3 px-6 rounded-lg cta-button">Subscribe</button>
                  </form>
             </div>
@@ -637,47 +587,47 @@
 
     <!-- Thank You Popup -->
     <div id="thank-you-popup" class="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-[999] hidden opacity-0 popup">
-        <div class="bg-[var(--bg-popup)] border border-[var(--border-primary)] rounded-lg p-8 text-center max-w-sm w-full relative transform scale-95 popup-content">
-            <button id="close-popup-btn" class="absolute top-4 right-4 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors">
+        <div class="bg-gray-800 border border-gray-700 rounded-lg p-8 text-center max-w-sm w-full relative transform scale-95 popup-content">
+            <button id="close-popup-btn" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
                 <i data-lucide="x"></i>
             </button>
             <div class="bg-green-500/10 text-green-400 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <i data-lucide="check-circle-2" class="w-8 h-8"></i>
             </div>
-            <h3 class="text-2xl font-bold text-[var(--text-primary)] mb-2">Thank You!</h3>
-            <p class="text-[var(--text-secondary)]">You've successfully subscribed. Welcome aboard!</p>
+            <h3 class="text-2xl font-bold text-white mb-2">Thank You!</h3>
+            <p class="text-gray-400">You've successfully subscribed. Welcome aboard!</p>
         </div>
     </div>
 
 
     <!-- Footer -->
-    <footer class="bg-[var(--bg-secondary)] border-t border-[var(--border-primary)]">
+    <footer class="bg-black border-t border-gray-800">
         <div class="container mx-auto px-6 py-12">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
                 <div>
-                    <h3 class="text-lg font-semibold text-[var(--text-primary)] mb-4">Contact Us</h3>
-                    <ul class="space-y-2 text-[var(--text-secondary)]">
+                    <h3 class="text-lg font-semibold text-white mb-4">Contact Us</h3>
+                    <ul class="space-y-2 text-gray-400">
                         <li><i data-lucide="mail" class="inline w-4 h-4 mr-2"></i> appdevizer@gmail.com</li>
                         <li><i data-lucide="phone" class="inline w-4 h-4 mr-2"></i> +91 9507734271</li>
                         <li><i data-lucide="map-pin" class="inline w-4 h-4 mr-2"></i> Innovation Drive, Cityville</li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold text-[var(--text-primary)] mb-4">Quick Links</h3>
+                    <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
                      <ul class="space-y-2">
-                        <li><a href="#home" class="text-[var(--text-secondary)] hover:text-indigo-400 transition-colors">Home</a></li>
-                        <li><a href="#" class="text-[var(--text-secondary)] hover:text-indigo-400 transition-colors">Licenses</a></li>
-                        <li><a href="#" class="text-[var(--text-secondary)] hover:text-indigo-400 transition-colors">Terms of Service</a></li>
+                        <li><a href="#home" class="text-gray-400 hover:text-indigo-400 transition-colors">Home</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">Licenses</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-indigo-400 transition-colors">Terms of Service</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold text-[var(--text-primary)] mb-4">Flutter Mastery</h3>
-                    <p class="text-[var(--text-secondary)]">A 2300+ page comprehensive guide from Beginner to Expert. Our mission is to provide the best learning resources for Flutter developers worldwide.</p>
+                    <h3 class="text-lg font-semibold text-white mb-4">Flutter Mastery</h3>
+                    <p class="text-gray-400">A 2300+ page comprehensive guide from Beginner to Expert. Our mission is to provide the best learning resources for Flutter developers worldwide.</p>
                 </div>
             </div>
-            <div class="mt-12 border-t border-[var(--border-primary)] pt-8 flex flex-col sm:flex-row justify-between items-center text-center">
-                <p class="text-[var(--text-muted)]">Developed by ZealousWeb.</p>
-                <p class="text-[var(--text-muted)] mt-4 sm:mt-0">&copy; 2024 Flutter Mastery. All Rights Reserved.</p>
+            <div class="mt-12 border-t border-gray-800 pt-8 flex flex-col sm:flex-row justify-between items-center text-center">
+                <p class="text-gray-500">Developed by ZealousWeb.</p>
+                <p class="text-gray-500 mt-4 sm:mt-0">&copy; 2024 Flutter Mastery. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
@@ -786,4 +736,3 @@
 </body>
 
 </html>
-
